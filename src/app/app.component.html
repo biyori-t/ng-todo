@@ -1,5 +1,4 @@
-<div>
-  <input id="txtName" name="txtName" type="text" [(ngModel)]="task" />
-  <button (click)="addTask()">Add</button>
+<div *ngIf="tasks$ | async as tasks">
+  <app-add-task></app-add-task>
   <app-task-list [tasks]="tasks"></app-task-list>
 </div>

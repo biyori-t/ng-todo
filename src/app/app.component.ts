@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-root',
@@ -6,15 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  task: string = '';
-  tasks = ['task1', 'task2', 'task3'];
+  tasks$: Observable<string[]>;
 
-  addTask() {
-    if (this.task == '') {
-      return;
-    }
-
-    this.tasks.push(this.task);
-    this.task = '';
+  constructor(private readonly _tasksService: TasksService) {
+    this.tasks$ = this._tasksService.task$;
   }
 }
