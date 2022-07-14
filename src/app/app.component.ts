@@ -17,8 +17,4 @@ export class AppComponent {
     this.tasks.push(this.task);
     this.task = '';
   }
-
-  deleteTask(index: number) {
-    this.tasks.splice(index, 1);
-  }
 }
