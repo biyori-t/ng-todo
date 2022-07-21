@@ -11,7 +11,9 @@ export class TaskListComponent implements OnInit {
 
   constructor(private readonly _tasksService: TasksService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.tasks);
+  }
 
   onDeleteTask(index: number) {
     this._tasksService.delete(index);

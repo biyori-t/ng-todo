@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TasksService } from 'src/app/features/task/tasks.service';
+import { store, task$ } from 'src/app/features/task/todo.repository';
 
 @Component({
   selector: 'app-home-page',
@@ -14,5 +15,7 @@ export class HomePageComponent implements OnInit {
     this.tasks$ = this._tasksService.task$;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    task$.subscribe((tasks) => console.log(tasks));
+  }
 }
