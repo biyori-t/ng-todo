@@ -1,4 +1,4 @@
-import { createStore, select, withProps } from '@ngneat/elf';
+import { createStore, select, setProp, withProps } from '@ngneat/elf';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Todo {
@@ -13,7 +13,9 @@ export const store = createStore(
 export const tasks$ = store.pipe(select((state) => state.tasks));
 
 export function addTask(task: string): void {
-  store.update((state) => ({ ...state, tasks: [...state.tasks, task] }));
+  const tasks = getTasks();
+
+  store.update(setProp('tasks', [...tasks, task]));
 }
 
 export function getTasks(): string[] {
@@ -21,9 +23,8 @@ export function getTasks(): string[] {
 }
 
 export function deleteTask(index: number): void {
-  store.update((state) => {
-    const tasks = state.tasks;
-    tasks.splice(index, 1);
-    return { ...state, tasks: [...tasks] };
-  });
+  const tasks = getTasks();
+  tasks.splice(index, 1);
+
+  store.update(setProp('tasks', tasks));
 }
