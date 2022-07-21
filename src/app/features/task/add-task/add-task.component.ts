@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TasksService } from '../tasks.service';
+import { TodoRepository } from '../todo.repository';
 
 @Component({
   selector: 'app-add-task',
@@ -9,12 +9,12 @@ import { TasksService } from '../tasks.service';
 export class AddTaskComponent implements OnInit {
   task: string = '';
 
-  constructor(private readonly _tasksService: TasksService) {}
+  constructor(private readonly _todoRepository: TodoRepository) {}
 
   ngOnInit(): void {}
 
   onAddTask() {
-    this._tasksService.add(this.task);
+    this._todoRepository.addTask(this.task);
     this.task = '';
   }
 }

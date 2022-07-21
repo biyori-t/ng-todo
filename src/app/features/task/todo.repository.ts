@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { createStore, select, setProp, withProps } from '@ngneat/elf';
 
 interface Todo {
@@ -9,12 +10,19 @@ const store = createStore(
   withProps<Todo>({ tasks: ['task1', 'task2', 'task3'] })
 );
 
+@Injectable({
+  providedIn: 'root',
+})
 export class TodoRepository {
   get tasks$() {
     return store.pipe(select((state) => state.tasks));
   }
 
   addTask(task: string): void {
+    if (task == '') {
+      return;
+    }
+
     const tasks = this.getTasks();
 
     store.update(setProp('tasks', [...tasks, task]));
@@ -28,6 +36,6 @@ export class TodoRepository {
     const tasks = this.getTasks();
     tasks.splice(index, 1);
 
-    store.update(setProp('tasks', tasks));
+    store.update(setProp('tasks', [...tasks]));
   }
 }

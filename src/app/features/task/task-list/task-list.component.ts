@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TasksService } from '../tasks.service';
+import { TodoRepository } from '../todo.repository';
 
 @Component({
   selector: 'app-task-list',
@@ -9,13 +9,13 @@ import { TasksService } from '../tasks.service';
 export class TaskListComponent implements OnInit {
   @Input() tasks: string[] = [];
 
-  constructor(private readonly _tasksService: TasksService) {}
+  constructor(private readonly _todoRepository: TodoRepository) {}
 
   ngOnInit(): void {
     console.log(this.tasks);
   }
 
   onDeleteTask(index: number) {
-    this._tasksService.delete(index);
+    this._todoRepository.deleteTask(index);
   }
 }
