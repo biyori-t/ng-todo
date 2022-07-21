@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { addTask, deleteTask, tasks$ } from './todo.repository';
+import { TodoRepository } from './todo.repository';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TasksService {
+  private readonly _todoRepository = new TodoRepository();
+
   get tasks$() {
-    return tasks$;
+    return this._todoRepository.tasks$;
   }
 
   constructor() {}
@@ -16,10 +18,10 @@ export class TasksService {
       return;
     }
 
-    addTask(task);
+    this._todoRepository.addTask(task);
   }
 
   delete(index: number) {
-    deleteTask(index);
+    this._todoRepository.deleteTask(index);
   }
 }
